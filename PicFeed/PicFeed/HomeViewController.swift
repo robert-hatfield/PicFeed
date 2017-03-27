@@ -53,8 +53,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
-        actionSheetController.addAction(cameraAction)
-        actionSheetController.addAction(photoAction)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            actionSheetController.addAction(cameraAction)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            actionSheetController.addAction(photoAction)
+        }
+        
         actionSheetController.addAction(cancelAction)
         
         self.present(actionSheetController, animated: true, completion: nil)
