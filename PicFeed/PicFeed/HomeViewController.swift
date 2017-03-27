@@ -32,9 +32,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Info: \(info)")
-        if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        
+        if let newImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             ImageView.image = newImage
+            print("Used edited image")
+        } else {
+            if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                ImageView.image = newImage
+                print("Used original image")
+            }
         }
+        
         self.dismiss(animated: true, completion: nil)
     }
     
