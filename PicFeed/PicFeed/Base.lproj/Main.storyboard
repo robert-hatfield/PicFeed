@@ -22,7 +22,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zT2-bD-eup">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="zT2-bD-eup">
                                 <rect key="frame" x="47" y="83.5" width="281" height="500"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -51,4 +51,7 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="placeholder_image" width="512" height="512"/>
+    </resources>
 </document>
