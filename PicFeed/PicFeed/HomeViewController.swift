@@ -11,7 +11,7 @@ import UIKit
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
-
+    
     @IBOutlet weak var ImageView: UIImageView!
     
     override func viewDidLoad() {
@@ -32,6 +32,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Info: \(info)")
+        if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            ImageView.image = newImage
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func imageTapped(_ sender: Any) {
@@ -45,6 +49,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
             self.presentImagePickerWith(sourceType: .camera)
+            self.imagePicker.allowsEditing = true
         }
         
         let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
