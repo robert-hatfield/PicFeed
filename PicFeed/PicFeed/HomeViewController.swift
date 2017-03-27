@@ -79,4 +79,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.present(actionSheetController, animated: true, completion: nil)
         
     }
+    
+    func wordCount(ofString string: String) -> Int {
+        
+        var words = [String]()
+        let range = Range<String.Index>(uncheckedBounds: (lower: string.startIndex, upper: string.endIndex))
+        
+        string.enumerateSubstrings(in: range, options: .byWords) { (word, _, _, _) in
+            words.append(word!)
+        }
+        
+        return words.count
+        
+    }
 }
