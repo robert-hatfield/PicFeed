@@ -36,6 +36,28 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBAction func imageTapped(_ sender: Any) {
         print("User tapped image!")
+        self.presentActionSheet()
     }
     
+    func presentActionSheet() {
+        
+        let actionSheetController = UIAlertController(title: "Source", message: "Please select Source Type", preferredStyle: .actionSheet)
+        
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.presentImagePickerWith(sourceType: .camera)
+        }
+        
+        let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            self.presentImagePickerWith(sourceType: .photoLibrary)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        actionSheetController.addAction(cameraAction)
+        actionSheetController.addAction(photoAction)
+        actionSheetController.addAction(cancelAction)
+        
+        self.present(actionSheetController, animated: true, completion: nil)
+        
+    }
 }

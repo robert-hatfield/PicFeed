@@ -23,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zT2-bD-eup">
-                                <rect key="frame" x="46.5" y="83" width="281" height="500"/>
+                                <rect key="frame" x="47" y="83.5" width="281" height="500"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="hmT-zz-eO1" appends="YES" id="UDd-gf-zJI"/>
