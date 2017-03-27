@@ -1,2 +1,2 @@
 # PicFeed
-Simple Pic Feed application using CloudKit and Core Image
+A simple photo feed application using CloudKit and Core Image.
