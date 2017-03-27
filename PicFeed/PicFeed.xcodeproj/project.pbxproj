@@ -13,6 +13,7 @@
 		62AF73F31E89812500AF8D4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62AF73F11E89812500AF8D4C /* LaunchScreen.storyboard */; };
 		62AF73FD1E89813D00AF8D4C /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62AF73FC1E89813D00AF8D4C /* CloudKit.framework */; };
 		62AF74031E8984E100AF8D4C /* CloudKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AF74021E8984E100AF8D4C /* CloudKit.swift */; };
+		62AF74051E898D4A00AF8D4C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AF74041E898D4A00AF8D4C /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		62AF73FA1E89813B00AF8D4C /* PicFeed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PicFeed.entitlements; sourceTree = "<group>"; };
 		62AF73FC1E89813D00AF8D4C /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		62AF74021E8984E100AF8D4C /* CloudKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKit.swift; sourceTree = "<group>"; };
+		62AF74041E898D4A00AF8D4C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				62AF73E81E89812500AF8D4C /* AppDelegate.swift */,
+				62AF74041E898D4A00AF8D4C /* HomeViewController.swift */,
 				62AF74021E8984E100AF8D4C /* CloudKit.swift */,
 			);
 			name = Controllers;
@@ -193,6 +196,7 @@
 			files = (
 				62AF74031E8984E100AF8D4C /* CloudKit.swift in Sources */,
 				62AF73E91E89812500AF8D4C /* AppDelegate.swift in Sources */,
+				62AF74051E898D4A00AF8D4C /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
