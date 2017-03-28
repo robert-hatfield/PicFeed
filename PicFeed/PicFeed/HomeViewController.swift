@@ -14,10 +14,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var ImageView: UIImageView!
     
+    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        filterButtonTopConstraint.constant = 8
+        
+        UIView.animate(withDuration: 0.4) {
+            self.view.layoutIfNeeded()
+        }
     }
 
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
