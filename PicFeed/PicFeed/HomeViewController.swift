@@ -22,6 +22,10 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
         // Do any additional setup after loading the view.
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(false)
         filterButtonTopConstraint.constant = 8
         
         UIView.animate(withDuration: 0.4) {
