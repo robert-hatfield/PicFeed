@@ -29,11 +29,24 @@
                                     <outletCollection property="gestureRecognizers" destination="hmT-zz-eO1" appends="YES" id="UDd-gf-zJI"/>
                                 </connections>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2iL-ml-ShG">
+                                <rect key="frame" x="46.5" y="45" width="281" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="POST">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="postButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1I9-Ld-Mpe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ek-kz-DgQ"/>
+                            <constraint firstItem="2iL-ml-ShG" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" id="BNE-M0-mkz"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CeJ-eR-kNt"/>
+                            <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="2iL-ml-ShG" secondAttribute="bottom" constant="8" id="DBT-iV-9dR"/>
+                            <constraint firstItem="2iL-ml-ShG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Iab-5Z-Ogd"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="dAJ-1m-a1o"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="z4y-KG-46N"/>
                         </constraints>
