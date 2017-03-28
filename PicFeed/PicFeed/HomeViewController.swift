@@ -27,18 +27,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil) // this will dismiss the topmost view controller
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Info: \(info)")
         
         if let newImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            ImageView.image = newImage
+            self.ImageView.image = newImage
             print("Used edited image")
         } else {
             if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                ImageView.image = newImage
+                self.ImageView.image = newImage
                 print("Used original image")
             }
         }
