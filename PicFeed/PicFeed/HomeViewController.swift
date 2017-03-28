@@ -83,6 +83,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func filterButtonPressed(_ sender: Any) {
         guard let image = self.ImageView.image else { return }
         let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
+        
         let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
             Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
                 self.ImageView.image = filteredImage
@@ -93,13 +94,32 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.ImageView.image = filteredImage
             })
         }
+        let bloomAction = UIAlertAction(title: "Bloom", style: .default) { (action) in
+            Filters.filter(name: .bloom, image: image, completion: { (filteredImage) in
+                self.ImageView.image = filteredImage
+            })
+        }
+        let sharpenAction = UIAlertAction(title: "Sharpen", style: .default) { (action) in
+            Filters.filter(name: .sharpen, image: image, completion: { (filteredImage) in
+                self.ImageView.image = filteredImage
+            })
+        }
+        let halftoneAction = UIAlertAction(title: "Halftone", style: .default) { (action) in
+            Filters.filter(name: .halftone, image: image, completion:  { (filteredImage) in
+                self.ImageView.image = filteredImage
+            })
+        }
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
             self.ImageView.image = Filters.originalImage
         }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         alertController.addAction(blackAndWhiteAction)
         alertController.addAction(vintageAction)
+        alertController.addAction(bloomAction)
+        alertController.addAction(halftoneAction)
+        alertController.addAction(sharpenAction)
         alertController.addAction(resetAction)
         alertController.addAction(cancelAction)
         
