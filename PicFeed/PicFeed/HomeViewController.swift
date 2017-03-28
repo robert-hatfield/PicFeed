@@ -33,12 +33,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         print("Info: \(info)")
         
-        if let newImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            self.ImageView.image = newImage
+        if let originalImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.ImageView.image = originalImage
+            Filters.originalImage = originalImage
             print("Used edited image")
-        } else {
-            if let newImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                self.ImageView.image = newImage
+        }
+        else {
+            if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                self.ImageView.image = originalImage
                 print("Used original image")
             }
         }
@@ -63,6 +65,33 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             })
         }
     }
+    
+    @IBAction func filterButtonPressed(_ sender: Any) {
+        guard let image = self.ImageView.image else { return }
+        let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
+        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
+            Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+                self.ImageView.image = filteredImage
+            })
+        }
+        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
+            Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
+                self.ImageView.image = filteredImage
+            })
+        }
+        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
+            self.ImageView.image = Filters.originalImage
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(blackAndWhiteAction)
+        alertController.addAction(vintageAction)
+        alertController.addAction(resetAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     
     func presentActionSheet() {
         
