@@ -87,8 +87,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             actionSheetController.addAction(photoAction)
         }
         
-        actionSheetController.addAction(cancelAction)
+        if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad {
+            actionSheetController.addAction(cancelAction)
+        }
         
+        let popover = actionSheetController.popoverPresentationController
+        popover?.sourceView = ImageView
+        popover?.sourceRect = ImageView.bounds
+        popover?.permittedArrowDirections = UIPopoverArrowDirection.any
+            
         self.present(actionSheetController, animated: true, completion: nil)
         
     }
