@@ -50,6 +50,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         else {
             if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 self.ImageView.image = originalImage
+                Filters.originalImage = originalImage
                 print("Used original image")
             }
         }
