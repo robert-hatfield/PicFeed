@@ -16,6 +16,7 @@
 		62AF74051E898D4A00AF8D4C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62AF74041E898D4A00AF8D4C /* HomeViewController.swift */; };
 		62BB02741E8AD0DF00E7C244 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB02731E8AD0DF00E7C244 /* Post.swift */; };
 		62BB02761E8AD37E00E7C244 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB02751E8AD37E00E7C244 /* UIExtensions.swift */; };
+		62BB02781E8AE71C00E7C244 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB02771E8AE71C00E7C244 /* Filters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		62AF74041E898D4A00AF8D4C /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		62BB02731E8AD0DF00E7C244 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		62BB02751E8AD37E00E7C244 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
+		62BB02771E8AE71C00E7C244 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		62AF74011E89825D00AF8D4C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				62BB02771E8AE71C00E7C244 /* Filters.swift */,
 				62BB02731E8AD0DF00E7C244 /* Post.swift */,
 			);
 			name = Models;
@@ -203,6 +206,7 @@
 				62AF74031E8984E100AF8D4C /* CloudKit.swift in Sources */,
 				62AF73E91E89812500AF8D4C /* AppDelegate.swift in Sources */,
 				62AF74051E898D4A00AF8D4C /* HomeViewController.swift in Sources */,
+				62BB02781E8AE71C00E7C244 /* Filters.swift in Sources */,
 				62BB02761E8AD37E00E7C244 /* UIExtensions.swift in Sources */,
 				62BB02741E8AD0DF00E7C244 /* Post.swift in Sources */,
 			);
