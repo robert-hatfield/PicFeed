@@ -11,6 +11,9 @@ import UIKit
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
+    let animationDuration = 0.4
+    let marginConstant = CGFloat(8)
+    let zeroConstant = CGFloat(0)
     
     @IBOutlet weak var ImageView: UIImageView!
     
@@ -30,11 +33,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        filterButtonTopConstraint.constant = 8
-        postButtonLeadingConstraint.constant = 0
-        saveButtonTrailingConstraint.constant = 0
+        filterButtonTopConstraint.constant = marginConstant
+        postButtonLeadingConstraint.constant = zeroConstant
+        saveButtonTrailingConstraint.constant = zeroConstant
         
-        UIView.animate(withDuration: 0.4) {
+        UIView.animate(withDuration: animationDuration) {
             self.view.layoutIfNeeded()
         }
     }
