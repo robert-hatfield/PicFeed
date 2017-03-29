@@ -19,6 +19,7 @@
 		62BB02781E8AE71C00E7C244 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB02771E8AE71C00E7C244 /* Filters.swift */; };
 		62BB027A1E8C236E00E7C244 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB02791E8C236E00E7C244 /* GalleryViewController.swift */; };
 		62BB027C1E8C277F00E7C244 /* GalleryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB027B1E8C277F00E7C244 /* GalleryCell.swift */; };
+		62BB027E1E8C37B800E7C244 /* GalleryCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62BB027D1E8C37B800E7C244 /* GalleryCollectionViewLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		62BB02771E8AE71C00E7C244 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Filters.swift; sourceTree = "<group>"; };
 		62BB02791E8C236E00E7C244 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		62BB027B1E8C277F00E7C244 /* GalleryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCell.swift; sourceTree = "<group>"; };
+		62BB027D1E8C37B800E7C244 /* GalleryCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				62BB02791E8C236E00E7C244 /* GalleryViewController.swift */,
+				62BB027D1E8C37B800E7C244 /* GalleryCollectionViewLayout.swift */,
 				62AF73E81E89812500AF8D4C /* AppDelegate.swift */,
 				62AF74041E898D4A00AF8D4C /* HomeViewController.swift */,
 				62AF74021E8984E100AF8D4C /* CloudKit.swift */,
@@ -212,6 +215,7 @@
 				62AF74031E8984E100AF8D4C /* CloudKit.swift in Sources */,
 				62BB027A1E8C236E00E7C244 /* GalleryViewController.swift in Sources */,
 				62AF73E91E89812500AF8D4C /* AppDelegate.swift in Sources */,
+				62BB027E1E8C37B800E7C244 /* GalleryCollectionViewLayout.swift in Sources */,
 				62AF74051E898D4A00AF8D4C /* HomeViewController.swift in Sources */,
 				62BB027C1E8C277F00E7C244 /* GalleryCell.swift in Sources */,
 				62BB02781E8AE71C00E7C244 /* Filters.swift in Sources */,
