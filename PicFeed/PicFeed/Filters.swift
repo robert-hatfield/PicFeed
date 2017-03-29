@@ -20,9 +20,7 @@ typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
     
-//    static var imageHistory = [UIImage]()
-//    static var originalImage = imageHistory[0]
-    static var originalImage = UIImage()
+    static var imageHistory = [UIImage]()
     
     class func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
         OperationQueue().addOperation {

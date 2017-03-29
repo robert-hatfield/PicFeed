@@ -50,14 +50,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if let originalImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.ImageView.image = originalImage
-            Filters.originalImage = originalImage
-            print("Used edited image")
+            Filters.imageHistory.removeAll()
+            Filters.imageHistory.append(originalImage)
         }
         else {
             if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 self.ImageView.image = originalImage
-                Filters.originalImage = originalImage
-                print("Used original image")
+                Filters.imageHistory.removeAll()
+                Filters.imageHistory.append(originalImage)
             }
         }
         
@@ -112,7 +112,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             })
         }
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
-            self.ImageView.image = Filters.originalImage
+            
+            self.ImageView.image = Filters.imageHistory[0]
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
