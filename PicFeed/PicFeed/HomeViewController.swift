@@ -89,7 +89,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         }
     }
     
+    func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print("A save error occurred: \(error.localizedDescription)")
+        }
+    }
     
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        UIImageWriteToSavedPhotosAlbum(ImageView.image!, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
         guard let image = self.ImageView.image else { return }
