@@ -20,7 +20,22 @@ typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
     
+    let ciContext = CIContext()
+    
+    static let sharedFilters: Filters = {
+        
+        let instance = Filters()
+        
+        let options = [kCIContextWorkingColorSpace: NSNull()]
+        guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
+        let ciContext = CIContext(eaglContext: eaglContext, options: options)
+        
+        return instance
+    }()
+    
     static var imageHistory = [UIImage]()
+    
+    
     
     class func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
         OperationQueue().addOperation {
@@ -28,10 +43,10 @@ class Filters {
             let coreImage = CIImage(image: image)
             filter.setValue(coreImage, forKey: kCIInputImageKey)
             
-            // GPU Context
-            let options = [kCIContextWorkingColorSpace: NSNull()]
-            guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
-            let ciContext = CIContext(eaglContext: eaglContext, options: options)
+//            // GPU Context
+//            let options = [kCIContextWorkingColorSpace: NSNull()]
+//            guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
+//            let ciContext = CIContext(eaglContext: eaglContext, options: options)
             
             // Get filtered image from GPU
             guard var outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
@@ -41,7 +56,7 @@ class Filters {
                 outputImage = outputImage.cropping(to: (coreImage?.extent)!)
             }
             
-            if let cgImage = ciContext.createCGImage(outputImage, from: outputImage.extent) {
+            if let cgImage = sharedFilters.ciContext.createCGImage(outputImage, from: outputImage.extent) {
 
                 
                 let finalImage = UIImage(cgImage: cgImage)
