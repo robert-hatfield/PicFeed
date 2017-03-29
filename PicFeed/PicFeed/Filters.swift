@@ -20,6 +20,8 @@ typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
     
+//    static var imageHistory = [UIImage]()
+//    static var originalImage = imageHistory[0]
     static var originalImage = UIImage()
     
     class func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
@@ -34,9 +36,16 @@ class Filters {
             let ciContext = CIContext(eaglContext: eaglContext, options: options)
             
             // Get filtered image from GPU
-            guard let outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
+            guard var outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
+            
+            if name == .bloom {
+                // necessary because the filter is resizing the image
+                outputImage = outputImage.cropping(to: (coreImage?.extent)!)
+            }
             
             if let cgImage = ciContext.createCGImage(outputImage, from: outputImage.extent) {
+
+                
                 let finalImage = UIImage(cgImage: cgImage)
                 OperationQueue.main.addOperation {
                     completion(finalImage)
