@@ -14,9 +14,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var ImageView: UIImageView!
     
-    @IBOutlet weak var postButtonCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var postButtonLeadingConstraint: NSLayoutConstraint!
 
-    @IBOutlet weak var filterButtonCenterXConstraint: NSLayoutConstraint!
+    @IBOutlet weak var saveButtonTrailingConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +29,18 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(false)
-        filterButtonCenterXConstraint.constant = 0
-        postButtonCenterXConstraint.constant = 0
+        
+        filterButtonTopConstraint.constant = 8
+        postButtonLeadingConstraint.constant = 0
+        saveButtonTrailingConstraint.constant = 0
         
         UIView.animate(withDuration: 0.4) {
             self.view.layoutIfNeeded()
         }
     }
 
+    
+    
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
         self.imagePicker.delegate = self
         self.imagePicker.sourceType = sourceType
@@ -82,6 +88,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             })
         }
     }
+    
+    
     
     @IBAction func filterButtonPressed(_ sender: Any) {
         guard let image = self.ImageView.image else { return }
