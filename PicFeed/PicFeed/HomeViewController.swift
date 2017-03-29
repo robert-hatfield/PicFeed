@@ -57,6 +57,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 self.ImageView.image = originalImage
                 Filters.imageHistory.removeAll()
+                print("removed history")
                 Filters.imageHistory.append(originalImage)
             }
         }
@@ -111,9 +112,20 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 self.ImageView.image = filteredImage
             })
         }
+        
+        let undoAction = UIAlertAction(title: "Undo last", style: .destructive) { (action) in
+            if Filters.imageHistory.count > 1 {
+                Filters.imageHistory.removeLast()
+                self.ImageView.image = Filters.imageHistory.last
+            }
+        }
+        
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
             
             self.ImageView.image = Filters.imageHistory[0]
+            if Filters.imageHistory.count > 1 {
+                Filters.imageHistory.removeSubrange(1..<Filters.imageHistory.count)
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -123,8 +135,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alertController.addAction(bloomAction)
         alertController.addAction(halftoneAction)
         alertController.addAction(sharpenAction)
-        alertController.addAction(resetAction)
+        alertController.addAction(undoAction)
+        
+        // Do not show reset unless there are 2 or more filters applied
+        if Filters.imageHistory.count > 2 {
+            alertController.addAction(resetAction)
+        }
+        
         alertController.addAction(cancelAction)
+        
+        // Disable undo if there are no filters applied
+        if Filters.imageHistory.count < 2 {
+            undoAction.isEnabled = false
+        }
         
         self.present(alertController, animated: true, completion: nil)
     }
