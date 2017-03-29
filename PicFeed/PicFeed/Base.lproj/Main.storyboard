@@ -30,7 +30,7 @@
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2iL-ml-ShG">
-                                <rect key="frame" x="46.5" y="45" width="281" height="30"/>
+                                <rect key="frame" x="-353" y="45" width="281" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="POST">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,7 +40,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrK-19-X49">
-                                <rect key="frame" x="46.5" y="783.5" width="281" height="30"/>
+                                <rect key="frame" x="447" y="591.5" width="281" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="FILTER">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -55,11 +55,11 @@
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ek-kz-DgQ"/>
                             <constraint firstItem="2iL-ml-ShG" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" id="BNE-M0-mkz"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CeJ-eR-kNt"/>
-                            <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="2iL-ml-ShG" secondAttribute="bottom" constant="8" id="DBT-iV-9dR"/>
-                            <constraint firstItem="2iL-ml-ShG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Iab-5Z-Ogd"/>
+                            <constraint firstItem="2iL-ml-ShG" firstAttribute="bottom" secondItem="zT2-bD-eup" secondAttribute="top" constant="-8" id="DBT-iV-9dR"/>
+                            <constraint firstItem="2iL-ml-ShG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-400" id="Iab-5Z-Ogd"/>
                             <constraint firstItem="IrK-19-X49" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" id="TX8-QV-FnY"/>
-                            <constraint firstItem="IrK-19-X49" firstAttribute="top" secondItem="zT2-bD-eup" secondAttribute="bottom" constant="200" id="W9W-gt-PCO"/>
-                            <constraint firstItem="IrK-19-X49" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wsb-gw-95u"/>
+                            <constraint firstItem="IrK-19-X49" firstAttribute="top" secondItem="zT2-bD-eup" secondAttribute="bottom" constant="8" id="W9W-gt-PCO"/>
+                            <constraint firstItem="IrK-19-X49" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="400" id="Wsb-gw-95u"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="dAJ-1m-a1o"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" id="z4y-KG-46N"/>
                         </constraints>
@@ -67,7 +67,8 @@
                     <tabBarItem key="tabBarItem" title="Item" id="pej-gC-40X"/>
                     <connections>
                         <outlet property="ImageView" destination="zT2-bD-eup" id="C5M-LA-SgC"/>
-                        <outlet property="filterButtonTopConstraint" destination="W9W-gt-PCO" id="hmh-ob-fTe"/>
+                        <outlet property="filterButtonCenterXConstraint" destination="Wsb-gw-95u" id="dHH-nv-0UA"/>
+                        <outlet property="postButtonCenterXConstraint" destination="Iab-5Z-Ogd" id="wic-ZA-PVk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -85,6 +86,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="AyR-xM-Alw" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="HSj-RE-G1e">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
