@@ -30,6 +30,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
 
         self.filterCollectionView.dataSource = self
+
         setupGalleryDelegate()
         
     }
