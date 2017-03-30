@@ -128,77 +128,11 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         default:
             return
         }
-//        self.filterViewHeightConstraint.constant = filterViewHeight
         
         UIView.animate(withDuration: animationDuration) { 
             self.view.layoutIfNeeded()
         }
         
-//        let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
-//        
-//        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
-//            Filters.shared.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
-//                self.ImageView.image = filteredImage
-//            })
-//        }
-//        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
-//            Filters.shared.filter(name: .vintage, image: image, completion: { (filteredImage) in
-//                self.ImageView.image = filteredImage
-//            })
-//        }
-//        let bloomAction = UIAlertAction(title: "Bloom", style: .default) { (action) in
-//            Filters.shared.filter(name: .bloom, image: image, completion: { (filteredImage) in
-//                self.ImageView.image = filteredImage
-//            })
-//        }
-//        let sharpenAction = UIAlertAction(title: "Sharpen", style: .default) { (action) in
-//            Filters.shared.filter(name: .sharpen, image: image, completion: { (filteredImage) in
-//                self.ImageView.image = filteredImage
-//            })
-//        }
-//        let halftoneAction = UIAlertAction(title: "Halftone", style: .default) { (action) in
-//            Filters.shared.filter(name: .halftone, image: image, completion:  { (filteredImage) in
-//                self.ImageView.image = filteredImage
-//            })
-//        }
-//        
-//        let undoAction = UIAlertAction(title: "Undo last", style: .destructive) { (action) in
-//            if Filters.shared.imageHistory.count > 1 {
-//                Filters.shared.imageHistory.removeLast()
-//                self.ImageView.image = Filters.shared.imageHistory.last
-//            }
-//        }
-//        
-//        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
-//            
-//            self.ImageView.image = Filters.shared.imageHistory[0]
-//            if Filters.shared.imageHistory.count > 1 {
-//                Filters.shared.imageHistory.removeSubrange(1..<Filters.shared.imageHistory.count)
-//            }
-//        }
-//        
-//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//        
-//        alertController.addAction(blackAndWhiteAction)
-//        alertController.addAction(vintageAction)
-//        alertController.addAction(bloomAction)
-//        alertController.addAction(halftoneAction)
-//        alertController.addAction(sharpenAction)
-//        alertController.addAction(undoAction)
-//        
-//        // Do not show reset unless there are 2 or more filters applied
-//        if Filters.shared.imageHistory.count > 2 {
-//            alertController.addAction(resetAction)
-//        }
-//        
-//        alertController.addAction(cancelAction)
-//        
-//        // Disable undo if there are no filters applied
-//        if Filters.shared.imageHistory.count < 2 {
-//            undoAction.isEnabled = false
-//        }
-//        
-//        self.present(alertController, animated: true, completion: nil)
     }
     
     
@@ -255,22 +189,19 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 //MARK: UICollectionView DataSource
 extension HomeViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
         let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterPreviewCell.identifier, for: indexPath) as! FilterPreviewCell
         
         guard let originalImage = Filters.originalImage as UIImage? else { return filterCell }
-// This may need to be refactored with optionals if there is no image in the imageView
-//        else { return filterCell }
+
         let targetSize = CGFloat(150)
         var resizeFactor : CGFloat
-//        guard let resizedImage = originalImage.resize(size: CGSize(width: 150, height: 150)) else { return filterCell }
-        
         if originalImage.size.height > originalImage.size.width {
             resizeFactor = targetSize / originalImage.size.width
         } else {
             resizeFactor = targetSize / originalImage.size.height
         }
-        print("Original height: \(originalImage.size.height)\nOriginal width: \(originalImage.size.width)\nResize factor: \(resizeFactor)")
-        print("New size: \(originalImage.size.width * resizeFactor)w x \(originalImage.size.height * resizeFactor)h")
+        
         guard let resizedImage = originalImage.resize(size: CGSize(width: originalImage.size.width * resizeFactor, height: originalImage.size.height * resizeFactor)) else { return filterCell }
         
         let filterName = self.filterNames[indexPath.row]
@@ -290,7 +221,10 @@ extension HomeViewController : UICollectionViewDataSource {
 extension HomeViewController : GalleryViewControllerDelegate {
     func galleryController(didSelect image: UIImage) {
         self.ImageView.image = image
-        
+        Filters.originalImage = image
+        Filters.shared.imageHistory.removeAll()
+        Filters.shared.imageHistory.append(image)
+                
         self.tabBarController?.selectedIndex = 0
     }
 }
