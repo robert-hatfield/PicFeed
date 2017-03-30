@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Social
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -94,6 +95,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         self.presentActionSheet()
     }
     
+//MARK User actions
     @IBAction func postButtonPressed(_ sender: Any) {
         if let image = self.ImageView.image {
             let newPost = Post(image: image)
@@ -135,6 +137,16 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
     }
     
+    @IBAction func userLongPressed(_ sender: UILongPressGestureRecognizer) {
+        if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter) {
+            guard let composeController = SLComposeViewController(forServiceType: SLServiceTypeTwitter) else {
+                return
+            }
+            
+            composeController.add(self.ImageView.image)
+            self.present(composeController, animated: true, completion: nil)
+        }
+    }
     
     func presentActionSheet() {
         
