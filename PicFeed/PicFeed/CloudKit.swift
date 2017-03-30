@@ -22,6 +22,8 @@ class CloudKit {
         return container.privateCloudDatabase
     }
     
+
+    
     func save(post: Post, completion: @escaping SuccessCompletion) { // completion can also be referred to as a callback
         do {
             if let record = try Post.recordFor(post: post) {
@@ -44,6 +46,8 @@ class CloudKit {
     
     func getPosts(completion: @escaping PostsCompletion) {
         let postQuery = CKQuery(recordType: "Post", predicate: NSPredicate(value: true))
+        let sort = NSSortDescriptor(key: "creationDate", ascending: false)
+//        postQuery.sortDescriptors = [sort]
         
         self.privateDatabase.perform(postQuery, inZoneWith: nil) { (records, error) in
             
@@ -54,10 +58,13 @@ class CloudKit {
             if let records = records {
                 var posts = [Post]()
                 for record in records {
+                    let uploadedDate = record.creationDate!
+                    
+                    print("Created: \(uploadedDate)")
                     if let asset = record["image"] as? CKAsset {
                         let path = asset.fileURL.path
                         if let image = UIImage(contentsOfFile: path) {
-                            let newPost = Post(image: image)
+                            let newPost = Post(image: image, date: uploadedDate)
                             posts.append(newPost)
                         }
                     }
