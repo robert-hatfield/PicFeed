@@ -61,10 +61,10 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="StB-zg-CCe">
-                                <rect key="frame" x="0.0" y="434" width="375" height="150"/>
+                                <rect key="frame" x="0.0" y="584" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="OSc-t7-IYQ"/>
+                                    <constraint firstAttribute="height" id="OSc-t7-IYQ"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dP0-Av-EFr">
                                     <size key="itemSize" width="130" height="120"/>
@@ -74,10 +74,8 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FilterPreviewCell" id="tK5-BZ-dSj" customClass="FilterPreviewCell" customModule="PicFeed" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="15" width="130" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="130" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RyC-87-kR7">
@@ -124,6 +122,7 @@
                         <outlet property="ImageView" destination="zT2-bD-eup" id="C5M-LA-SgC"/>
                         <outlet property="filterButtonTopConstraint" destination="W9W-gt-PCO" id="BGp-N1-Ud3"/>
                         <outlet property="filterCollectionView" destination="StB-zg-CCe" id="MGL-MV-OxF"/>
+                        <outlet property="filterViewHeightConstraint" destination="OSc-t7-IYQ" id="PeB-GJ-abZ"/>
                         <outlet property="postButtonLeadingConstraint" destination="F26-Gg-eAL" id="za8-Sn-YFc"/>
                         <outlet property="saveButtonTrailingConstraint" destination="CiW-tY-ZJP" id="MZ4-RS-OOE"/>
                     </connections>

@@ -15,6 +15,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     let animationDuration = 0.4
     let marginConstant = CGFloat(8)
     let zeroConstant = CGFloat(0)
+    let endFilterViewHeight = CGFloat(150)
     
     @IBOutlet weak var ImageView: UIImageView!
     
@@ -23,6 +24,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButtonLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var saveButtonTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterViewHeightConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,71 +111,86 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBAction func filterButtonPressed(_ sender: Any) {
         guard let image = self.ImageView.image else { return }
-        let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
         
-        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
-            Filters.shared.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
-                self.ImageView.image = filteredImage
-            })
+        switch self.filterViewHeightConstraint.constant {
+        case zeroConstant:
+            self.filterViewHeightConstraint.constant = endFilterViewHeight
+        case endFilterViewHeight:
+            self.filterViewHeightConstraint.constant = zeroConstant
+        default:
+            return
         }
-        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
-            Filters.shared.filter(name: .vintage, image: image, completion: { (filteredImage) in
-                self.ImageView.image = filteredImage
-            })
-        }
-        let bloomAction = UIAlertAction(title: "Bloom", style: .default) { (action) in
-            Filters.shared.filter(name: .bloom, image: image, completion: { (filteredImage) in
-                self.ImageView.image = filteredImage
-            })
-        }
-        let sharpenAction = UIAlertAction(title: "Sharpen", style: .default) { (action) in
-            Filters.shared.filter(name: .sharpen, image: image, completion: { (filteredImage) in
-                self.ImageView.image = filteredImage
-            })
-        }
-        let halftoneAction = UIAlertAction(title: "Halftone", style: .default) { (action) in
-            Filters.shared.filter(name: .halftone, image: image, completion:  { (filteredImage) in
-                self.ImageView.image = filteredImage
-            })
+//        self.filterViewHeightConstraint.constant = filterViewHeight
+        
+        UIView.animate(withDuration: animationDuration) { 
+            self.view.layoutIfNeeded()
         }
         
-        let undoAction = UIAlertAction(title: "Undo last", style: .destructive) { (action) in
-            if Filters.shared.imageHistory.count > 1 {
-                Filters.shared.imageHistory.removeLast()
-                self.ImageView.image = Filters.shared.imageHistory.last
-            }
-        }
-        
-        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
-            
-            self.ImageView.image = Filters.shared.imageHistory[0]
-            if Filters.shared.imageHistory.count > 1 {
-                Filters.shared.imageHistory.removeSubrange(1..<Filters.shared.imageHistory.count)
-            }
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(blackAndWhiteAction)
-        alertController.addAction(vintageAction)
-        alertController.addAction(bloomAction)
-        alertController.addAction(halftoneAction)
-        alertController.addAction(sharpenAction)
-        alertController.addAction(undoAction)
-        
-        // Do not show reset unless there are 2 or more filters applied
-        if Filters.shared.imageHistory.count > 2 {
-            alertController.addAction(resetAction)
-        }
-        
-        alertController.addAction(cancelAction)
-        
-        // Disable undo if there are no filters applied
-        if Filters.shared.imageHistory.count < 2 {
-            undoAction.isEnabled = false
-        }
-        
-        self.present(alertController, animated: true, completion: nil)
+//        let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
+//        
+//        let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
+//            Filters.shared.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+//                self.ImageView.image = filteredImage
+//            })
+//        }
+//        let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
+//            Filters.shared.filter(name: .vintage, image: image, completion: { (filteredImage) in
+//                self.ImageView.image = filteredImage
+//            })
+//        }
+//        let bloomAction = UIAlertAction(title: "Bloom", style: .default) { (action) in
+//            Filters.shared.filter(name: .bloom, image: image, completion: { (filteredImage) in
+//                self.ImageView.image = filteredImage
+//            })
+//        }
+//        let sharpenAction = UIAlertAction(title: "Sharpen", style: .default) { (action) in
+//            Filters.shared.filter(name: .sharpen, image: image, completion: { (filteredImage) in
+//                self.ImageView.image = filteredImage
+//            })
+//        }
+//        let halftoneAction = UIAlertAction(title: "Halftone", style: .default) { (action) in
+//            Filters.shared.filter(name: .halftone, image: image, completion:  { (filteredImage) in
+//                self.ImageView.image = filteredImage
+//            })
+//        }
+//        
+//        let undoAction = UIAlertAction(title: "Undo last", style: .destructive) { (action) in
+//            if Filters.shared.imageHistory.count > 1 {
+//                Filters.shared.imageHistory.removeLast()
+//                self.ImageView.image = Filters.shared.imageHistory.last
+//            }
+//        }
+//        
+//        let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
+//            
+//            self.ImageView.image = Filters.shared.imageHistory[0]
+//            if Filters.shared.imageHistory.count > 1 {
+//                Filters.shared.imageHistory.removeSubrange(1..<Filters.shared.imageHistory.count)
+//            }
+//        }
+//        
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+//        
+//        alertController.addAction(blackAndWhiteAction)
+//        alertController.addAction(vintageAction)
+//        alertController.addAction(bloomAction)
+//        alertController.addAction(halftoneAction)
+//        alertController.addAction(sharpenAction)
+//        alertController.addAction(undoAction)
+//        
+//        // Do not show reset unless there are 2 or more filters applied
+//        if Filters.shared.imageHistory.count > 2 {
+//            alertController.addAction(resetAction)
+//        }
+//        
+//        alertController.addAction(cancelAction)
+//        
+//        // Disable undo if there are no filters applied
+//        if Filters.shared.imageHistory.count < 2 {
+//            undoAction.isEnabled = false
+//        }
+//        
+//        self.present(alertController, animated: true, completion: nil)
     }
     
     
