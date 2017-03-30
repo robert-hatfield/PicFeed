@@ -10,7 +10,7 @@ import UIKit
 
 class GalleryCollectionViewLayout: UICollectionViewFlowLayout {
 
-    var columns = 2
+    var columns : Int
     let spacing: CGFloat = 1.0
     
     var screenWidth : CGFloat {
@@ -22,7 +22,7 @@ class GalleryCollectionViewLayout: UICollectionViewFlowLayout {
         return availableScreen / CGFloat(self.columns)
     }
     
-    init (columns : Int = 2) {
+    init (columns : Int) {
         self.columns = columns
         
         super.init()

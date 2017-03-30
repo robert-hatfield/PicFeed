@@ -24,7 +24,7 @@ enum PostError : Error {
     case writingDataToDisk
 }
 
-// best practice per Apple is to keep classes lightweight, and use extensions to add capabilitis like CloudKit
+// best practice per Apple is to keep classes lightweight, and use extensions to add capabilities like CloudKit
 extension Post {
     
     class func recordFor(post: Post) throws -> CKRecord? {
