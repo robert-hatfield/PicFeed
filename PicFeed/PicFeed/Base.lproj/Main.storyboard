@@ -62,7 +62,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="StB-zg-CCe">
-                                <rect key="frame" x="0.0" y="582" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="565.5" width="375" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="OSc-t7-IYQ"/>
@@ -79,15 +79,23 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RyC-87-kR7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RyC-87-kR7"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cho-eU-ZJR">
+                                                    <rect key="frame" x="0.0" y="-14.5" width="0.0" height="14.5"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="cho-eU-ZJR" firstAttribute="bottom" secondItem="RyC-87-kR7" secondAttribute="bottom" id="7OO-II-wXb"/>
+                                            <constraint firstItem="cho-eU-ZJR" firstAttribute="width" secondItem="RyC-87-kR7" secondAttribute="width" id="BST-jr-WpK"/>
                                             <constraint firstItem="RyC-87-kR7" firstAttribute="top" secondItem="tK5-BZ-dSj" secondAttribute="top" id="BdW-41-Il5"/>
                                             <constraint firstAttribute="trailing" secondItem="RyC-87-kR7" secondAttribute="trailing" id="MXd-09-fXb"/>
                                             <constraint firstItem="RyC-87-kR7" firstAttribute="leading" secondItem="tK5-BZ-dSj" secondAttribute="leading" id="ZVW-xr-qCD"/>
+                                            <constraint firstItem="cho-eU-ZJR" firstAttribute="centerX" secondItem="RyC-87-kR7" secondAttribute="centerX" id="ZWe-GA-IdP"/>
                                             <constraint firstAttribute="bottom" secondItem="RyC-87-kR7" secondAttribute="bottom" id="e9H-bD-ekW"/>
                                         </constraints>
                                         <connections>
@@ -101,6 +109,7 @@
                         <constraints>
                             <constraint firstItem="StB-zg-CCe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0b5-dR-Ck8"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ek-kz-DgQ"/>
+                            <constraint firstItem="StB-zg-CCe" firstAttribute="bottom" secondItem="zT2-bD-eup" secondAttribute="bottom" id="8kv-1h-wxR"/>
                             <constraint firstItem="2iL-ml-ShG" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" multiplier="0.475" id="BNE-M0-mkz"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-8" id="CeJ-eR-kNt"/>
                             <constraint firstItem="NVP-vt-NeH" firstAttribute="trailing" secondItem="zT2-bD-eup" secondAttribute="trailing" constant="400" id="CiW-tY-ZJP"/>
@@ -113,7 +122,6 @@
                             <constraint firstAttribute="trailing" secondItem="StB-zg-CCe" secondAttribute="trailing" id="aGm-Bz-DsV"/>
                             <constraint firstItem="NVP-vt-NeH" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" multiplier="0.475" id="coJ-UT-Sul"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="dAJ-1m-a1o"/>
-                            <constraint firstItem="StB-zg-CCe" firstAttribute="bottom" secondItem="zT2-bD-eup" secondAttribute="bottom" constant="16.5" id="ome-75-k0k"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="NVP-vt-NeH" secondAttribute="bottom" constant="9.5" id="ve7-ex-bmS"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" constant="-20" id="z4y-KG-46N"/>
                         </constraints>
