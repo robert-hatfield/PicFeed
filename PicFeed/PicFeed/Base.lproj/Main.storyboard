@@ -97,7 +97,7 @@
                                 </cells>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="StB-zg-CCe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0b5-dR-Ck8"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5ek-kz-DgQ"/>
@@ -206,7 +206,7 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SsU-Yb-eba" secondAttribute="trailing" id="TlK-b2-PnX"/>
                             <constraint firstItem="SsU-Yb-eba" firstAttribute="top" secondItem="Zfw-Bf-5F5" secondAttribute="bottom" id="fZX-ZZ-GWA"/>
