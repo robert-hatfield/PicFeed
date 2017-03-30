@@ -11,9 +11,11 @@ import CloudKit
 
 class Post {
     let image : UIImage
+    let date : Date?
     
-    init(image: UIImage) {
+    init(image: UIImage, date: Date? = nil) {
         self.image = image
+        self.date = date
     }
 }
 
@@ -24,7 +26,7 @@ enum PostError : Error {
     case writingDataToDisk
 }
 
-// best practice per Apple is to keep classes lightweight, and use extensions to add capabilitis like CloudKit
+// best practice per Apple is to keep classes lightweight, and use extensions to add capabilities like CloudKit
 extension Post {
     
     class func recordFor(post: Post) throws -> CKRecord? {

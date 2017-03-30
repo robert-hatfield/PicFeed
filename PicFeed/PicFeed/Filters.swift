@@ -20,18 +20,24 @@ typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
     
-    static var imageHistory = [UIImage]()
+    var ciContext : CIContext
     
-    class func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
+    var imageHistory = [UIImage]()
+    
+    static let shared = Filters()
+    
+    private init() {
+        // Create GPU Context
+        let options = [kCIContextWorkingColorSpace: NSNull()]
+        guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
+        self.ciContext = CIContext(eaglContext: eaglContext, options: options)
+    }
+    
+     func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
         OperationQueue().addOperation {
             guard let filter = CIFilter(name: name.rawValue) else { fatalError("Failed to create CIFilter") }
             let coreImage = CIImage(image: image)
             filter.setValue(coreImage, forKey: kCIInputImageKey)
-            
-            // GPU Context
-            let options = [kCIContextWorkingColorSpace: NSNull()]
-            guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
-            let ciContext = CIContext(eaglContext: eaglContext, options: options)
             
             // Get filtered image from GPU
             guard var outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
@@ -41,13 +47,13 @@ class Filters {
                 outputImage = outputImage.cropping(to: (coreImage?.extent)!)
             }
             
-            if let cgImage = ciContext.createCGImage(outputImage, from: outputImage.extent) {
+            if let cgImage = self.ciContext.createCGImage(outputImage, from: outputImage.extent) {
 
                 
                 let finalImage = UIImage(cgImage: cgImage)
                 OperationQueue.main.addOperation {
-                    print("history count: \(Filters.imageHistory.count)")
-                    Filters.imageHistory.append(finalImage)
+                    print("history count: \(self.imageHistory.count)")
+                    self.imageHistory.append(finalImage)
                     completion(finalImage)
                 }
             } else {

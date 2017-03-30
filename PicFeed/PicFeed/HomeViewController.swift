@@ -59,15 +59,15 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if let originalImage = info[UIImagePickerControllerEditedImage] as? UIImage {
             self.ImageView.image = originalImage
-            Filters.imageHistory.removeAll()
-            Filters.imageHistory.append(originalImage)
+            Filters.shared.imageHistory.removeAll()
+            Filters.shared.imageHistory.append(originalImage)
         }
         else {
             if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
                 self.ImageView.image = originalImage
-                Filters.imageHistory.removeAll()
+                Filters.shared.imageHistory.removeAll()
                 print("removed history")
-                Filters.imageHistory.append(originalImage)
+                Filters.shared.imageHistory.append(originalImage)
             }
         }
         
@@ -107,43 +107,43 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         let alertController = UIAlertController(title: "Filter", message: "Please select a filter to apply.", preferredStyle: .alert)
         
         let blackAndWhiteAction = UIAlertAction(title: "Black & White", style: .default) { (action) in
-            Filters.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
+            Filters.shared.filter(name: .blackAndWhite, image: image, completion: { (filteredImage) in
                 self.ImageView.image = filteredImage
             })
         }
         let vintageAction = UIAlertAction(title: "Vintage", style: .default) { (action) in
-            Filters.filter(name: .vintage, image: image, completion: { (filteredImage) in
+            Filters.shared.filter(name: .vintage, image: image, completion: { (filteredImage) in
                 self.ImageView.image = filteredImage
             })
         }
         let bloomAction = UIAlertAction(title: "Bloom", style: .default) { (action) in
-            Filters.filter(name: .bloom, image: image, completion: { (filteredImage) in
+            Filters.shared.filter(name: .bloom, image: image, completion: { (filteredImage) in
                 self.ImageView.image = filteredImage
             })
         }
         let sharpenAction = UIAlertAction(title: "Sharpen", style: .default) { (action) in
-            Filters.filter(name: .sharpen, image: image, completion: { (filteredImage) in
+            Filters.shared.filter(name: .sharpen, image: image, completion: { (filteredImage) in
                 self.ImageView.image = filteredImage
             })
         }
         let halftoneAction = UIAlertAction(title: "Halftone", style: .default) { (action) in
-            Filters.filter(name: .halftone, image: image, completion:  { (filteredImage) in
+            Filters.shared.filter(name: .halftone, image: image, completion:  { (filteredImage) in
                 self.ImageView.image = filteredImage
             })
         }
         
         let undoAction = UIAlertAction(title: "Undo last", style: .destructive) { (action) in
-            if Filters.imageHistory.count > 1 {
-                Filters.imageHistory.removeLast()
-                self.ImageView.image = Filters.imageHistory.last
+            if Filters.shared.imageHistory.count > 1 {
+                Filters.shared.imageHistory.removeLast()
+                self.ImageView.image = Filters.shared.imageHistory.last
             }
         }
         
         let resetAction = UIAlertAction(title: "Reset Image", style: .destructive) { (action) in
             
-            self.ImageView.image = Filters.imageHistory[0]
-            if Filters.imageHistory.count > 1 {
-                Filters.imageHistory.removeSubrange(1..<Filters.imageHistory.count)
+            self.ImageView.image = Filters.shared.imageHistory[0]
+            if Filters.shared.imageHistory.count > 1 {
+                Filters.shared.imageHistory.removeSubrange(1..<Filters.shared.imageHistory.count)
             }
         }
         
@@ -157,14 +157,14 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         alertController.addAction(undoAction)
         
         // Do not show reset unless there are 2 or more filters applied
-        if Filters.imageHistory.count > 2 {
+        if Filters.shared.imageHistory.count > 2 {
             alertController.addAction(resetAction)
         }
         
         alertController.addAction(cancelAction)
         
         // Disable undo if there are no filters applied
-        if Filters.imageHistory.count < 2 {
+        if Filters.shared.imageHistory.count < 2 {
             undoAction.isEnabled = false
         }
         
