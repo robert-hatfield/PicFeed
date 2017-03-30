@@ -18,7 +18,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     let endFilterViewHeight = CGFloat(150)
     
     @IBOutlet weak var ImageView: UIImageView!
-    
     @IBOutlet weak var filterCollectionView: UICollectionView!
     
     @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
@@ -29,8 +28,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.filterCollectionView.dataSource = self
+        setupGalleryDelegate()
+        
+    }
+    
+    func setupGalleryDelegate() {
+        if let tabBarController = self.tabBarController {
+            guard let viewControllers = tabBarController.viewControllers else { return }
+            guard let galleryController = viewControllers[1] as? GalleryViewController else { return }
+            galleryController.delegate = self
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -276,5 +284,13 @@ extension HomeViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterNames.count
+    }
+}
+
+extension HomeViewController : GalleryViewControllerDelegate {
+    func galleryController(didSelect image: UIImage) {
+        self.ImageView.image = image
+        
+        self.tabBarController?.selectedIndex = 0
     }
 }
