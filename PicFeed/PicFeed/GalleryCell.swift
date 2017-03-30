@@ -11,10 +11,16 @@ import UIKit
 class GalleryCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     var post: Post! {
         didSet {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            
             self.imageView.image = post.image
+            self.dateLabel.text = dateFormatter.string(from: post.date!)
         }
     }
     

@@ -30,11 +30,7 @@ class GalleryViewController: UIViewController {
         update()
     }
 
-    func update() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .none
-        
+    func update() {        
         CloudKit.shared.getPosts { (posts) in
             if let posts = posts {
                 self.allPosts = posts
