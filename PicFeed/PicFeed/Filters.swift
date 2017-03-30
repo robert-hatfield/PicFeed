@@ -27,6 +27,7 @@ class Filters {
     static let shared = Filters()
     
     private init() {
+        // Create GPU Context
         let options = [kCIContextWorkingColorSpace: NSNull()]
         guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
         self.ciContext = CIContext(eaglContext: eaglContext, options: options)
@@ -37,11 +38,6 @@ class Filters {
             guard let filter = CIFilter(name: name.rawValue) else { fatalError("Failed to create CIFilter") }
             let coreImage = CIImage(image: image)
             filter.setValue(coreImage, forKey: kCIInputImageKey)
-            
-//            // GPU Context
-//            let options = [kCIContextWorkingColorSpace: NSNull()]
-//            guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
-//            let ciContext = CIContext(eaglContext: eaglContext, options: options)
             
             // Get filtered image from GPU
             guard var outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
