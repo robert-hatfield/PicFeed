@@ -20,24 +20,19 @@ typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
     
-    let ciContext = CIContext()
+    var ciContext : CIContext
     
-    static let sharedFilters: Filters = {
-        
-        let instance = Filters()
-        
+    var imageHistory = [UIImage]()
+    
+    static let shared = Filters()
+    
+    private init() {
         let options = [kCIContextWorkingColorSpace: NSNull()]
         guard let eaglContext = EAGLContext(api: .openGLES2) else { fatalError("Failed to create EAGLContext") }
-        let ciContext = CIContext(eaglContext: eaglContext, options: options)
-        
-        return instance
-    }()
+        self.ciContext = CIContext(eaglContext: eaglContext, options: options)
+    }
     
-    static var imageHistory = [UIImage]()
-    
-    
-    
-    class func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
+     func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
         OperationQueue().addOperation {
             guard let filter = CIFilter(name: name.rawValue) else { fatalError("Failed to create CIFilter") }
             let coreImage = CIImage(image: image)
@@ -56,13 +51,13 @@ class Filters {
                 outputImage = outputImage.cropping(to: (coreImage?.extent)!)
             }
             
-            if let cgImage = sharedFilters.ciContext.createCGImage(outputImage, from: outputImage.extent) {
+            if let cgImage = self.ciContext.createCGImage(outputImage, from: outputImage.extent) {
 
                 
                 let finalImage = UIImage(cgImage: cgImage)
                 OperationQueue.main.addOperation {
-                    print("history count: \(Filters.imageHistory.count)")
-                    Filters.imageHistory.append(finalImage)
+                    print("history count: \(self.imageHistory.count)")
+                    self.imageHistory.append(finalImage)
                     completion(finalImage)
                 }
             } else {
