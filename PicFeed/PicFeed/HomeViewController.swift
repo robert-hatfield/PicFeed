@@ -10,6 +10,7 @@ import UIKit
 
 class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    let filterNames = [FilterName.blackAndWhite, FilterName.vintage, FilterName.bloom, FilterName.halftone, FilterName.sharpen]
     let imagePicker = UIImagePickerController()
     let animationDuration = 0.4
     let marginConstant = CGFloat(8)
@@ -17,17 +18,17 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     @IBOutlet weak var ImageView: UIImageView!
     
-    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var filterCollectionView: UICollectionView!
     
+    @IBOutlet weak var filterButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var postButtonLeadingConstraint: NSLayoutConstraint!
-
     @IBOutlet weak var saveButtonTrailingConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
+        self.filterCollectionView.dataSource = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -61,6 +62,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             self.ImageView.image = originalImage
             Filters.shared.imageHistory.removeAll()
             Filters.shared.imageHistory.append(originalImage)
+            Filters.originalImage = originalImage
+            self.filterCollectionView.reloadData()
         }
         else {
             if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -68,6 +71,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                 Filters.shared.imageHistory.removeAll()
                 print("removed history")
                 Filters.shared.imageHistory.append(originalImage)
+                Filters.originalImage = originalImage
+                self.filterCollectionView.reloadData()
             }
         }
         
@@ -219,5 +224,40 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         return words.count
         
+    }
+}
+
+//MARK: UICollectionView DataSource
+extension HomeViewController : UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterPreviewCell.identifier, for: indexPath) as! FilterPreviewCell
+        
+        guard let originalImage = Filters.originalImage as UIImage? else { return filterCell }
+// This may need to be refactored with optionals if there is no image in the imageView
+//        else { return filterCell }
+        let targetSize = CGFloat(150)
+        var resizeFactor : CGFloat
+//        guard let resizedImage = originalImage.resize(size: CGSize(width: 150, height: 150)) else { return filterCell }
+        
+        if originalImage.size.height > originalImage.size.width {
+            resizeFactor = targetSize / originalImage.size.width
+        } else {
+            resizeFactor = targetSize / originalImage.size.height
+        }
+        print("Original height: \(originalImage.size.height)\nOriginal width: \(originalImage.size.width)\nResize factor: \(resizeFactor)")
+        print("New size: \(originalImage.size.width * resizeFactor)w x \(originalImage.size.height * resizeFactor)h")
+        guard let resizedImage = originalImage.resize(size: CGSize(width: originalImage.size.width * resizeFactor, height: originalImage.size.height * resizeFactor)) else { return filterCell }
+        
+        let filterName = self.filterNames[indexPath.row]
+        
+        Filters.shared.filter(name: filterName, image: resizedImage) { (filteredImage) in
+            filterCell.imageView.image = filteredImage
+        }
+        
+        return filterCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filterNames.count
     }
 }

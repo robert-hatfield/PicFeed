@@ -23,6 +23,7 @@ class Filters {
     var ciContext : CIContext
     
     var imageHistory = [UIImage]()
+    static var originalImage : UIImage?
     
     static let shared = Filters()
     
