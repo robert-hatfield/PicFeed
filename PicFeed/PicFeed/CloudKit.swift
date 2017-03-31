@@ -60,7 +60,6 @@ class CloudKit {
                 for record in records {
                     let uploadedDate = record.creationDate!
                     
-                    print("Created: \(uploadedDate)")
                     if let asset = record["image"] as? CKAsset {
                         let path = asset.fileURL.path
                         if let image = UIImage(contentsOfFile: path) {

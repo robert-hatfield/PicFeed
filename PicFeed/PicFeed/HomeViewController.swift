@@ -13,7 +13,8 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     let filterNames = [FilterName.blackAndWhite, FilterName.vintage, FilterName.bloom, FilterName.halftone, FilterName.sharpen]
     let imagePicker = UIImagePickerController()
-    let animationDuration = 0.4
+    let normalAnimationDuration = 0.4
+    let shortAnimationDuration = 0.2
     let marginConstant = CGFloat(8)
     let zeroConstant = CGFloat(0)
     let endFilterViewHeight = CGFloat(150)
@@ -50,13 +51,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         postButtonLeadingConstraint.constant = zeroConstant
         saveButtonTrailingConstraint.constant = zeroConstant
         
-        UIView.animate(withDuration: animationDuration) {
+        UIView.animate(withDuration: normalAnimationDuration) {
             self.view.layoutIfNeeded()
         }
     }
 
     
-    
+//MARK: User actions
     func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
         self.imagePicker.delegate = self
         self.imagePicker.sourceType = sourceType
@@ -92,11 +93,13 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func imageTapped(_ sender: Any) {
-        print("User tapped image!")
+        UIView.animate(withDuration: self.shortAnimationDuration) {
+            self.filterViewHeightConstraint.constant = self.zeroConstant
+            self.view.layoutIfNeeded()
+        }
         self.presentActionSheet()
     }
     
-//MARK User actions
     @IBAction func postButtonPressed(_ sender: Any) {
         if let image = self.ImageView.image {
             let newPost = Post(image: image)
@@ -121,21 +124,21 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
     
     @IBAction func filterButtonPressed(_ sender: Any) {
-        guard let image = self.ImageView.image else { return }
-        
-        switch self.filterViewHeightConstraint.constant {
-        case zeroConstant:
-            self.filterViewHeightConstraint.constant = endFilterViewHeight
-        case endFilterViewHeight:
-            self.filterViewHeightConstraint.constant = zeroConstant
-        default:
-            return
+        if Filters.shared.imageHistory.count > 0 {
+            print("\(Filters.shared.imageHistory.count)")
+            switch self.filterViewHeightConstraint.constant {
+            case zeroConstant:
+                self.filterViewHeightConstraint.constant = endFilterViewHeight
+            case endFilterViewHeight:
+                self.filterViewHeightConstraint.constant = zeroConstant
+            default:
+                return
+            }
+            
+            UIView.animate(withDuration: normalAnimationDuration) {
+                self.view.layoutIfNeeded()
+            }
         }
-        
-        UIView.animate(withDuration: animationDuration) { 
-            self.view.layoutIfNeeded()
-        }
-        
     }
     
     @IBAction func userLongPressed(_ sender: UILongPressGestureRecognizer) {
@@ -153,34 +156,32 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         let actionSheetController = UIAlertController(title: "Source", message: "Please select Source Type", preferredStyle: .actionSheet)
         
-        let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+        typealias sourceAction = (title: String, style: UIAlertActionStyle, handler: ((UIAlertAction) -> Void)?, conditional: Bool?)
+        
+        let cameraAction: sourceAction = (title: "Camera", style: .default, handler: {(UIAlertAction) in
             self.presentImagePickerWith(sourceType: .camera)
-            self.imagePicker.allowsEditing = true
-        }
+            self.imagePicker.allowsEditing = true}, conditional: UIImagePickerController.isSourceTypeAvailable(.camera)
+        )
         
-        let photoAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+        let photoAction: sourceAction = (title: "Photo Library", style: .default, handler: {(UIAlertAction) in
             self.presentImagePickerWith(sourceType: .photoLibrary)
+        }, conditional: UIImagePickerController.isSourceTypeAvailable(.photoLibrary))
+        
+        let cancelAction: sourceAction = (title:"Cancel", style: .destructive, handler: nil, conditional: UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad)
+        
+        let sourceActions = [cameraAction, photoAction, cancelAction]
+        
+        for actionDefinition in sourceActions {
+            let action = UIAlertAction(title: actionDefinition.title, style: actionDefinition.style, handler: actionDefinition.handler)
+            if actionDefinition.conditional == true { actionSheetController.addAction(action) }
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            actionSheetController.addAction(cameraAction)
+        if let popover = actionSheetController.popoverPresentationController {
+            popover.sourceView = ImageView
+            popover.sourceRect = ImageView.bounds
+            popover.permittedArrowDirections = .init(rawValue: 0)
         }
         
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            actionSheetController.addAction(photoAction)
-        }
-        
-        if UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad {
-            actionSheetController.addAction(cancelAction)
-        }
-        
-        let popover = actionSheetController.popoverPresentationController
-        popover?.sourceView = ImageView
-        popover?.sourceRect = ImageView.bounds
-        popover?.permittedArrowDirections = UIPopoverArrowDirection.any
-            
         self.present(actionSheetController, animated: true, completion: nil)
         
     }
@@ -199,7 +200,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     }
 }
 
-//MARK: UICollectionView DataSource
+//MARK: UICollectionView extensions
 extension HomeViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
@@ -242,7 +243,7 @@ extension HomeViewController : GalleryViewControllerDelegate {
         Filters.shared.imageHistory.append(image)
                 
         self.tabBarController?.selectedIndex = 0
-        UIView.animate(withDuration: self.animationDuration) {
+        UIView.animate(withDuration: self.normalAnimationDuration) {
             self.filterViewHeightConstraint.constant = self.zeroConstant
             self.view.layoutIfNeeded()
         }
@@ -254,7 +255,7 @@ extension HomeViewController : UICollectionViewDelegate {
         let image = Filters.originalImage
         Filters.shared.filter(name: filterNames[indexPath.row], image: image!, completion: { (filteredImage) in
             self.ImageView.image = filteredImage
-            UIView.animate(withDuration: self.animationDuration) {
+            UIView.animate(withDuration: self.normalAnimationDuration) {
                 self.filterViewHeightConstraint.constant = self.zeroConstant
                 self.view.layoutIfNeeded()
             }
