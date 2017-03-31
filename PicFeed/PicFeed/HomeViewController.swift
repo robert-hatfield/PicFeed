@@ -30,7 +30,7 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         super.viewDidLoad()
 
         self.filterCollectionView.dataSource = self
-
+        self.filterCollectionView.delegate = self
         setupGalleryDelegate()
         
     }
@@ -231,6 +231,7 @@ extension HomeViewController : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filterNames.count
     }
+
 }
 
 extension HomeViewController : GalleryViewControllerDelegate {
@@ -241,5 +242,22 @@ extension HomeViewController : GalleryViewControllerDelegate {
         Filters.shared.imageHistory.append(image)
                 
         self.tabBarController?.selectedIndex = 0
+        UIView.animate(withDuration: self.animationDuration) {
+            self.filterViewHeightConstraint.constant = self.zeroConstant
+            self.view.layoutIfNeeded()
+        }
+    }
+}
+
+extension HomeViewController : UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let image = Filters.originalImage
+        Filters.shared.filter(name: filterNames[indexPath.row], image: image!, completion: { (filteredImage) in
+            self.ImageView.image = filteredImage
+            UIView.animate(withDuration: self.animationDuration) {
+                self.filterViewHeightConstraint.constant = self.zeroConstant
+                self.view.layoutIfNeeded()
+            }
+        })
     }
 }

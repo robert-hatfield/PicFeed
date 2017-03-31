@@ -19,6 +19,5 @@ class FilterPreviewCell: UICollectionViewCell {
         
         // clear image before cell is reused
         self.imageView.image = nil
-//        self.filterLabel.text = nil
     }
 }
