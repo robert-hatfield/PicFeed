@@ -11,11 +11,14 @@ import UIKit
 class FilterPreviewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+
+    @IBOutlet weak var filterLabel: UILabel!
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
         // clear image before cell is reused
         self.imageView.image = nil
+//        self.filterLabel.text = nil
     }
 }

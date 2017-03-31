@@ -219,6 +219,8 @@ extension HomeViewController : UICollectionViewDataSource {
         
         let filterName = self.filterNames[indexPath.row]
         
+        filterCell.filterLabel.text = filterName.rawValue
+        
         Filters.shared.filter(name: filterName, image: resizedImage) { (filteredImage) in
             filterCell.imageView.image = filteredImage
         }
