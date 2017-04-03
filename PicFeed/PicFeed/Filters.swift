@@ -54,8 +54,6 @@ class Filters {
                 
                 let finalImage = UIImage(cgImage: cgImage)
                 OperationQueue.main.addOperation {
-//                    print("history count: \(self.imageHistory.count)")
-                    self.imageHistory.append(finalImage)
                     completion(finalImage)
                 }
             } else {

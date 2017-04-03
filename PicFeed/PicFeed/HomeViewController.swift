@@ -172,7 +172,7 @@ extension HomeViewController : UICollectionViewDataSource {
         
         let filterCell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterPreviewCell.identifier, for: indexPath) as! FilterPreviewCell
         
-        guard let originalImage = Filters.originalImage as UIImage? else { return filterCell }
+        guard let originalImage = Filters.shared.imageHistory.last as UIImage? else { return filterCell }
 
         let targetSize = CGFloat(150)
         var resizeFactor : CGFloat
@@ -220,9 +220,10 @@ extension HomeViewController : GalleryViewControllerDelegate {
 //MARK: UICollectionView extension
 extension HomeViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let image = Filters.originalImage
+        let image = Filters.shared.imageHistory.last
         Filters.shared.filter(name: Filters.shared.allFilters[indexPath.row]["ciName"]!, image: image!, completion: { (filteredImage) in
             self.ImageView.image = filteredImage
+            Filters.shared.imageHistory.append(filteredImage!)
             UIView.animate(withDuration: self.normalAnimationDuration) {
                 self.filterViewHeightConstraint.constant = self.zeroConstant
                 self.view.layoutIfNeeded()
