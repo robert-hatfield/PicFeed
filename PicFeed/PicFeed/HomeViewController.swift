@@ -9,7 +9,7 @@
 import UIKit
 import Social
 
-class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class HomeViewController: UIViewController, UINavigationControllerDelegate {
     
     let filterNames = [FilterName.blackAndWhite, FilterName.vintage, FilterName.bloom, FilterName.halftone, FilterName.sharpen]
     let imagePicker = UIImagePickerController()
@@ -58,39 +58,6 @@ class HomeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
 
     
 //MARK: User actions
-    func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
-        self.imagePicker.delegate = self
-        self.imagePicker.sourceType = sourceType
-        self.present(self.imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil) // this will dismiss the topmost view controller
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print("Info: \(info)")
-        
-        if let originalImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            self.ImageView.image = originalImage
-            Filters.shared.imageHistory.removeAll()
-            Filters.shared.imageHistory.append(originalImage)
-            Filters.originalImage = originalImage
-            self.filterCollectionView.reloadData()
-        }
-        else {
-            if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-                self.ImageView.image = originalImage
-                Filters.shared.imageHistory.removeAll()
-                print("removed history")
-                Filters.shared.imageHistory.append(originalImage)
-                Filters.originalImage = originalImage
-                self.filterCollectionView.reloadData()
-            }
-        }
-        
-        self.dismiss(animated: true, completion: nil)
-    }
     
     @IBAction func imageTapped(_ sender: Any) {
         UIView.animate(withDuration: self.shortAnimationDuration) {
@@ -235,6 +202,7 @@ extension HomeViewController : UICollectionViewDataSource {
 
 }
 
+//MARK: GalleryViewController extension
 extension HomeViewController : GalleryViewControllerDelegate {
     func galleryController(didSelect image: UIImage) {
         self.ImageView.image = image
@@ -250,6 +218,7 @@ extension HomeViewController : GalleryViewControllerDelegate {
     }
 }
 
+//MARK: UICollectionView extension
 extension HomeViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = Filters.originalImage
@@ -261,4 +230,41 @@ extension HomeViewController : UICollectionViewDelegate {
             }
         })
     }
+}
+
+//MARK: UIImagePickerController extension
+extension HomeViewController : UIImagePickerControllerDelegate {
+    func presentImagePickerWith(sourceType: UIImagePickerControllerSourceType) {
+        self.imagePicker.delegate = self
+        self.imagePicker.sourceType = sourceType
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil) // this will dismiss the topmost view controller
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let originalImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+            self.ImageView.image = originalImage
+            Filters.shared.imageHistory.removeAll()
+            Filters.shared.imageHistory.append(originalImage)
+            Filters.originalImage = originalImage
+            self.filterCollectionView.reloadData()
+        }
+        else {
+            if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+                self.ImageView.image = originalImage
+                Filters.shared.imageHistory.removeAll()
+                print("removed history")
+                Filters.shared.imageHistory.append(originalImage)
+                Filters.originalImage = originalImage
+                self.filterCollectionView.reloadData()
+            }
+        }
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+
 }
