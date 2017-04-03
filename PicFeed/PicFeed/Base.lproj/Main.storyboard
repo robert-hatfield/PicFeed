@@ -32,13 +32,23 @@
                                 </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2iL-ml-ShG">
-                                <rect key="frame" x="-353" y="47" width="133.5" height="30"/>
+                                <rect key="frame" x="-353" y="46" width="133.5" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="POST">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="postButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1I9-Ld-Mpe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVP-vt-NeH">
+                                <rect key="frame" x="594" y="46" width="133.5" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="SAVE">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kc1-js-Bbb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IrK-19-X49">
@@ -51,15 +61,12 @@
                                     <action selector="filterButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kjd-aI-Lco"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NVP-vt-NeH">
-                                <rect key="frame" x="594.5" y="46" width="133.5" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="SAVE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXj-r2-XUf">
+                                <rect key="frame" x="243" y="573" width="84.5" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="UNDO">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <action selector="saveButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kc1-js-Bbb"/>
-                                </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="StB-zg-CCe">
                                 <rect key="frame" x="0.0" y="565.5" width="375" height="0.0"/>
@@ -116,16 +123,19 @@
                             <constraint firstItem="2iL-ml-ShG" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" multiplier="0.475" id="BNE-M0-mkz"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-8" id="CeJ-eR-kNt"/>
                             <constraint firstItem="NVP-vt-NeH" firstAttribute="trailing" secondItem="zT2-bD-eup" secondAttribute="trailing" constant="400" id="CiW-tY-ZJP"/>
-                            <constraint firstItem="2iL-ml-ShG" firstAttribute="bottom" secondItem="zT2-bD-eup" secondAttribute="top" constant="-8" id="DBT-iV-9dR"/>
                             <constraint firstItem="2iL-ml-ShG" firstAttribute="leading" secondItem="zT2-bD-eup" secondAttribute="leading" constant="-400" id="F26-Gg-eAL"/>
+                            <constraint firstItem="vXj-r2-XUf" firstAttribute="top" secondItem="zT2-bD-eup" secondAttribute="bottom" constant="7.5" id="I2k-Qp-KcK"/>
+                            <constraint firstItem="vXj-r2-XUf" firstAttribute="trailing" secondItem="zT2-bD-eup" secondAttribute="trailing" id="Sme-dp-1bE"/>
                             <constraint firstItem="IrK-19-X49" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" id="TX8-QV-FnY"/>
                             <constraint firstItem="IrK-19-X49" firstAttribute="top" secondItem="zT2-bD-eup" secondAttribute="bottom" constant="116.5" id="W9W-gt-PCO"/>
-                            <constraint firstItem="IrK-19-X49" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Wsb-gw-95u"/>
+                            <constraint firstItem="vXj-r2-XUf" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" multiplier="0.3" id="ZDs-bZ-n4K"/>
                             <constraint firstItem="StB-zg-CCe" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aGf-hv-la3"/>
                             <constraint firstAttribute="trailing" secondItem="StB-zg-CCe" secondAttribute="trailing" id="aGm-Bz-DsV"/>
+                            <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="2iL-ml-ShG" secondAttribute="bottom" constant="9.5" id="b1r-Bs-06R"/>
                             <constraint firstItem="NVP-vt-NeH" firstAttribute="width" secondItem="zT2-bD-eup" secondAttribute="width" multiplier="0.475" id="coJ-UT-Sul"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="dAJ-1m-a1o"/>
-                            <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="NVP-vt-NeH" secondAttribute="bottom" constant="9.5" id="ve7-ex-bmS"/>
+                            <constraint firstItem="zT2-bD-eup" firstAttribute="top" secondItem="NVP-vt-NeH" secondAttribute="bottom" constant="9.5" id="gEg-GR-bus"/>
+                            <constraint firstItem="IrK-19-X49" firstAttribute="leading" secondItem="zT2-bD-eup" secondAttribute="leading" id="wB9-Q6-O20"/>
                             <constraint firstItem="zT2-bD-eup" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.75" constant="-20" id="z4y-KG-46N"/>
                         </constraints>
                     </view>
