@@ -8,17 +8,18 @@
 
 import UIKit
 
-enum FilterName : String {
-    case vintage = "CIPhotoEffectTransfer"
-    case blackAndWhite = "CIPhotoEffectMono"
-    case bloom = "CIBloom"
-    case sharpen = "CISharpenLuminance"
-    case halftone = "CICMYKHalftone"
-}
+let vintageFilter = ["name": "Vintage", "ciName": "CIPhotoEffectTransfer"]
+let bwFilter = ["name": "Black & White", "ciName": "CIPhotoEffectMono"]
+let bloomFilter = ["name": "Bloom", "ciName": "CIBloom"]
+let sharpenFilter = ["name": "Sharpen", "ciName": "CISharpenLuminance"]
+let halftoneFilter = ["name": "Halftone", "ciName": "CICMYKHalftone"]
+
 
 typealias FilterCompletion = (UIImage?) -> ()
 
 class Filters {
+
+    let allFilters = [vintageFilter, bwFilter, bloomFilter, sharpenFilter, halftoneFilter]
     
     var ciContext : CIContext
     
@@ -34,16 +35,16 @@ class Filters {
         self.ciContext = CIContext(eaglContext: eaglContext, options: options)
     }
     
-     func filter(name: FilterName, image: UIImage, completion: @ escaping FilterCompletion) {
+     func filter(name: String, image: UIImage, completion: @ escaping FilterCompletion) {
         OperationQueue().addOperation {
-            guard let filter = CIFilter(name: name.rawValue) else { fatalError("Failed to create CIFilter") }
+            guard let filter = CIFilter(name: name) else { fatalError("Failed to create CIFilter") }
             let coreImage = CIImage(image: image)
             filter.setValue(coreImage, forKey: kCIInputImageKey)
             
             // Get filtered image from GPU
             guard var outputImage = filter.outputImage else { fatalError("Failed to get output Image from filter") }
             
-            if name == .bloom {
+            if name == "CIBloom" {
                 // necessary because the filter is resizing the image
                 outputImage = outputImage.cropping(to: (coreImage?.extent)!)
             }

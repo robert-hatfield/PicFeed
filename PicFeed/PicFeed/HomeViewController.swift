@@ -11,7 +11,6 @@ import Social
 
 class HomeViewController: UIViewController, UINavigationControllerDelegate {
     
-    let filterNames = [FilterName.blackAndWhite, FilterName.vintage, FilterName.bloom, FilterName.halftone, FilterName.sharpen]
     let imagePicker = UIImagePickerController()
     let normalAnimationDuration = 0.4
     let shortAnimationDuration = 0.2
@@ -185,11 +184,11 @@ extension HomeViewController : UICollectionViewDataSource {
         
         guard let resizedImage = originalImage.resize(size: CGSize(width: originalImage.size.width * resizeFactor, height: originalImage.size.height * resizeFactor)) else { return filterCell }
         
-        let filterName = self.filterNames[indexPath.row]
+        let filter = Filters.shared.allFilters[indexPath.row]
         
-        filterCell.filterLabel.text = filterName.rawValue
+        filterCell.filterLabel.text = filter["name"]
         
-        Filters.shared.filter(name: filterName, image: resizedImage) { (filteredImage) in
+        Filters.shared.filter(name: filter["ciName"]!, image: resizedImage) { (filteredImage) in
             filterCell.imageView.image = filteredImage
         }
         
@@ -197,7 +196,7 @@ extension HomeViewController : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filterNames.count
+        return Filters.shared.allFilters.count
     }
 
 }
@@ -222,7 +221,7 @@ extension HomeViewController : GalleryViewControllerDelegate {
 extension HomeViewController : UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = Filters.originalImage
-        Filters.shared.filter(name: filterNames[indexPath.row], image: image!, completion: { (filteredImage) in
+        Filters.shared.filter(name: Filters.shared.allFilters[indexPath.row]["ciName"]!, image: image!, completion: { (filteredImage) in
             self.ImageView.image = filteredImage
             UIView.animate(withDuration: self.normalAnimationDuration) {
                 self.filterViewHeightConstraint.constant = self.zeroConstant
